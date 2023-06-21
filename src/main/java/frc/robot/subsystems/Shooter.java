@@ -18,11 +18,11 @@ import static frc.robot.Ports.Shooter.IS_SLAVE_2_INVERTED;
 import static frc.robot.Ports.TALON_PID_SLOT;
 
 public class Shooter extends SubsystemBase {
-//    public static Shooter INSTANCE = null;
+   public static Shooter INSTANCE = null;
     private final TalonSRX shooterMaster = new TalonSRX(Ports.Shooter.MASTER);
     private final UnitModel rpsUnitModel = new UnitModel(Constants.Shooter.TICKS_PER_ROTATION);
 
-    public Shooter(){
+    private Shooter(){
         shooterMaster.configFactoryDefault();
         VictorSPX shooterSlave1 = new VictorSPX(Ports.Shooter.SLAVE_1);
         shooterSlave1.configFactoryDefault();
@@ -39,6 +39,7 @@ public class Shooter extends SubsystemBase {
         shooterMaster.config_kF(TALON_PID_SLOT, Constants.Shooter.KF, TALON_TIMEOUT);
 
         shooterMaster.enableCurrentLimit(true);
+        shooterMaster.configPeakCurrentLimit(35);
 
         shooterSlave1.follow(shooterMaster);
         shooterSlave2.follow(shooterMaster);
@@ -46,12 +47,12 @@ public class Shooter extends SubsystemBase {
         shooterSlave2.setInverted(IS_SLAVE_2_INVERTED);
     }
 
-//    public static Shooter getInstance(){
-//        if (INSTANCE == null){
-//            return new Shooter();
-//        }
-//        return INSTANCE;
-//    }
+    public static Shooter getInstance(){
+        if (INSTANCE == null){
+             INSTANCE =new Shooter();
+        }
+        return INSTANCE;
+    }
 
     public double getSpeed() {
         return rpsUnitModel.toVelocity(shooterMaster.getSelectedSensorVelocity());

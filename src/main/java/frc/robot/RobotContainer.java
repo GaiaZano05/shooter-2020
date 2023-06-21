@@ -18,7 +18,6 @@ public class RobotContainer {
     private final Joystick rightJoystick = new Joystick(2);
     private final JoystickButton rb = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
     private final JoystickButton leftTrigger = new JoystickButton(leftJoystick, 1);
-    private final Shooter shooter = new Shooter();
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -40,8 +39,8 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-//      leftTrigger.whileTrue(new Shoot(0));
-      leftTrigger.whileTrue(new InstantCommand(()->shooter.setVelocity(100)));
+      leftTrigger.whileTrue(new Shoot(0));
+//      leftTrigger.whileTrue(new InstantCommand(()->shooter.setVelocity(100)));
     }
 
 

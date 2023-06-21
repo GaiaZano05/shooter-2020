@@ -5,7 +5,7 @@ import frc.robot.Ports;
 import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
-    private final Shooter shooter = new Shooter();
+    private final Shooter shooter = Shooter.getInstance();
     private final int velocity;
 //
     public Shoot(int velocity) {
